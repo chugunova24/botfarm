@@ -25,7 +25,7 @@ class UserService:
     @staticmethod
     async def acquire_lock_user(user: dict[str, Any]) -> dict[str, Any] | None:
         if user["locktime"].timestamp() > 0:
-            raise HTTPException(status_code=403, detail={"error": ErrorCode.USER_ALREADY_BLOCK})
+            raise HTTPException(status_code=403, detail=ErrorCode.USER_ALREADY_BLOCK)
 
         update_query = await UserRepository.set_lock(user["id"], datetime.utcnow())
 
